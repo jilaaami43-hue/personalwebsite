@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My special people</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Sacramento&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth; /* Smooth scrolling between sections */
+    }
+
+    body {
+      font-style: italic;
+      background: linear-gradient(180deg, #fff9f2 0%, #ffe8d6 33%, #fff0e6 66%, #ffeedb 100%);
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(255, 153, 102, 0.15) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(255, 204, 153, 0.15) 0%, transparent 20%);
+      padding: 3rem 2rem;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Floating Decorations */
+    .decor {
+      position: absolute;
+      font-size: 1.5rem;
+      opacity: 0.6;
+      animation: floatDecor 10s ease-in-out infinite;
+      z-index: 0;
+    }
+
+    .decor-heart { color: #ff6666; }
+    .decor-star { color: #ffcc66; }
+    .decor-flower { color: #ff99cc; }
+
+    .decor-1 { top: 5%; left: 8%; animation-delay: 0s; }
+    .decor-2 { top: 35%; right: 10%; animation-delay: 1s; }
+    .decor-3 { bottom: 40%; left: 15%; animation-delay: 2s; }
+    .decor-4 { bottom: 10%; right: 18%; animation-delay: 3s; }
+    .decor-5 { top: 60%; right: 5%; animation-delay: 4s; }
+
+    @keyframes floatDecor {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-25px) rotate(12deg); }
+    }
+
+    /* Page Header */
+    .page-header {
+      text-align: center;
+      margin-bottom: 4rem;
+      opacity: 0;
+      animation: fadeInDown 1.2s ease forwards;
+      animation-delay: 0.3s;
+    }
+
+    .header-buttons {
+      margin-bottom: 1.5rem;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards;
+      animation-delay: 0.5s;
+    }
+
+    /* New: Back to Previous Page Button */
+    .nav-back-btn {
+      text-decoration: none;
+      color: white;
+      background: #ff8080;
+      padding: 0.7rem 1.5rem;
+      border-radius: 30px;
+      font-family: 'Poppins', sans-serif;
+      font-style: normal;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(255, 128, 128, 0.2);
+    }
+
+    .nav-back-btn:hover {
+      background: #ff6666;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(255, 128, 128, 0.3);
+    }
+
+    .main-title {
+      font-family: 'Sacramento', cursive;
+      color: #ff6666;
+      font-size: 3.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .main-message {
+      color: #4d4d4d;
+      font-size: 1.3rem;
+      padding: 0.8rem 1.5rem;
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 20px;
+      display: inline-block;
+    }
+
+    .main-message span {
+      display: inline-block;
+      animation: bounceLetters 2.5s ease-in-out infinite;
+      animation-delay: calc(0.1s * var(--i));
+    }
+
+    /* Section Styling */
+    .gallery-section {
+      margin-bottom: 5rem;
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 1s ease forwards;
+    }
+
+    .section-1 { animation-delay: 0.8s; }
+    .section-2 { animation-delay: 1.3s; }
+    .section-3 { animation-delay: 1.8s; }
+
+    .section-title {
+      font-family: 'Poppins', sans-serif;
+      color: #ff8080;
+      font-size: 2.5rem;
+      text-align: center;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.8rem;
+    }
+
+    /* Image Gallery */
+    .image-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .image-card {
+      position: relative;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 8px 25px rgba(255, 102, 102, 0.15);
+      transition: all 0.5s ease;
+    }
+
+    .image-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 30px rgba(255, 102, 102, 0.25);
+    }
+
+    .gallery-img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      transition: transform 0.8s ease;
+    }
+
+    .image-card:hover .gallery-img {
+      transform: scale(1.1);
+    }
+
+    .image-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 1rem;
+      background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+      color: white;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      font-style: normal;
+    }
+
+    .image-card:hover .image-overlay {
+      opacity: 1;
+    }
+
+    /* Back to Top Button */
+    .back-to-top-btn {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #ff6666;
+      color: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      box-shadow: 0 5px 15px rgba(255, 102, 102, 0.3);
+      transition: all 0.3s ease;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards;
+      animation-delay: 2.3s;
+    }
+
+    .back-to-top-btn:hover {
+      background: #ff4d4d;
+      transform: translateY(-3px);
+    }
+
+    /* Animation Keyframes */
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes bounceLetters {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 550px) {
+      .main-title {
+        font-size: 2.8rem;
+      }
+
+      .main-message {
+        font-size: 1.1rem;
+      }
+
+      .section-title {
+        font-size: 2.2rem;
+      }
+
+      .image-grid {
+        grid-template-columns: 1fr;
+        max-width: 300px;
+      }
+
+      .gallery-img {
+        height: 250px;
+      }
+
+      .nav-back-btn {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Floating Decorations -->
+  <div class="decor decor-heart decor-1">❤️</div>
+  <div class="decor decor-star decor-2">⭐</div>
+  <div class="decor decor-flower decor-3">🌸</div>
+  <div class="decor decor-heart decor-4">💖</div>
+  <div class="decor decor-star decor-5">✨</div>
+
+  <!-- Main Header with Back Button & Animated Message -->
+  <header class="page-header">
+    <!-- New: Back to Previous Page Button -->
+    <div class="header-buttons">
+      <a href="ewn.html" class="nav-back-btn">
+        <i class="fas fa-arrow-left"></i> Home
+      </a>
+    </div>
+
+    <h1 class="main-title">Important people of my life</h1>
+    <p class="main-message">
+
+  </header>
+
+  <!-- Family Section -->
+  <section class="gallery-section section-1">
+    <h2 class="section-title">
+      <i class="fas fa-home"></i> My Family
+    </h2>
+    <div class="image-grid">
+      <div class="image-card">
+        <img src="/1768045156475.jpg" alt="My Family" class="gallery-img">
+        <div class="image-overlay">"My family is always there for me, they always support me,just as long as I’m happy."</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Classmates Section -->
+  <section class="gallery-section section-2">
+    <h2 class="section-title">
+      <i class="fas fa-users"></i> My Classmates
+    </h2>
+    <div class="image-grid">
+      <div class="image-card">
+        <img src="/received_902533282746999.jpeg" alt="My Classmates" class="gallery-img">
+        <div class="image-overlay">"My classmates whom I’ve been with for a long time."</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Friends Section -->
+  <section class="gallery-section section-3">
+    <h2 class="section-title">
+      <i class="fas fa-handshake"></i> My Friends
+    </h2>
+    <div class="image-grid">
+      <div class="image-card">
+        <img src="/received_2907531959450835.jpeg" alt="My Friends" class="gallery-img">
+        <div class="image-overlay">"My friend who I’ve been with through laughter and tears."</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Back to Top Button (Renamed for Clarity) -->
+  <a href="#" class="back-to-top-btn">
+    <i class="fas fa-arrow-up"></i>
+  </a>
+</body>
+</html>
