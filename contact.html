@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Contact</title>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&family=Raleway:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            /* Animated Gradient Background */
+            background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fad0c4, #fbc2eb, #a1c4fd, #c2e9fb);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Background Particle Effect */
+        .particle {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            animation: floatParticles linear infinite;
+        }
+
+        /* Animated Background Gradient */
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Floating Particles Animation */
+        @keyframes floatParticles {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% {
+                transform: translateY(-10vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Main Contact Card */
+        .contact-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            padding: 4rem 3.5rem;
+            border-radius: 25px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Decorative Elements on Card */
+        .card-decoration {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            z-index: -1;
+        }
+
+        .decor-top {
+            top: -25px;
+            right: -25px;
+        }
+
+        .decor-bottom {
+            bottom: -25px;
+            left: -25px;
+        }
+
+        /* Heading Styles */
+        .page-title {
+            font-family: 'Raleway', sans-serif;
+            color: #2d3436;
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            opacity: 0;
+            animation: slideDown 1s ease forwards;
+            animation-delay: 0.3s;
+        }
+
+        .page-subtitle {
+            color: #4a4a4a;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 3rem;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+            animation-delay: 0.6s;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .contact-label {
+            color: #2d3436;
+            font-size: 1rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+            animation-delay: 0.9s;
+        }
+
+        /* Animated Contact Number */
+        .contact-number {
+            font-family: 'Raleway', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 500;
+            color: #2d3436;
+            letter-spacing: 3px;
+            padding: 1.2rem 2rem;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            opacity: 0;
+            transform: scale(0.9);
+            animation: scaleIn 1s ease forwards;
+            animation-delay: 1.2s;
+        }
+
+        .contact-number span {
+            display: inline-block;
+            position: relative;
+            animation: bounceLetters 2s ease-in-out infinite;
+            animation-delay: calc(0.1s * var(--i));
+        }
+
+        /* Call-to-Action Text */
+        .cta-text {
+            color: #4a4a4a;
+            font-size: 1rem;
+            font-style: italic;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+            animation-delay: 1.5s;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 1.2rem;
+            justify-content: center;
+            margin-top: 2.5rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+            animation-delay: 1.8s;
+        }
+
+        .btn {
+            text-decoration: none;
+            padding: 0.9rem 1.8rem;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+
+        .call-btn {
+            background: #2d3436;
+            color: white;
+        }
+
+        .call-btn:hover {
+            background: #4a4a4a;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .back-btn {
+            background: rgba(255, 255, 255, 0.3);
+            color: #2d3436;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.5);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Animation Keyframes */
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes bounceLetters {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 550px) {
+            .contact-card {
+                padding: 2.5rem 2rem;
+                border-radius: 20px;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .contact-number {
+                font-size: 1.8rem;
+                letter-spacing: 2px;
+                padding: 1rem 1.5rem;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .btn {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Dynamic Background Particles -->
+    <script>
+        // Create floating particles for background
+        function createParticles() {
+            const particleCount = 30;
+            const body = document.querySelector('body');
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random position & animation duration
+                particle.style.left = `${Math.random() * 100}vw`;
+                particle.style.animationDuration = `${Math.random() * 15 + 10}s`;
+                particle.style.width = particle.style.height = `${Math.random() * 5 + 2}px`;
+                
+                body.appendChild(particle);
+            }
+        }
+        createParticles();
+    </script>
+
+    <div class="contact-card">
+        <!-- Card Decorations -->
+        <div class="card-decoration decor-top"></div>
+        <div class="card-decoration decor-bottom"></div>
+
+        <!-- Page Heading -->
+        <h1 class="page-title">Contact Me!</h1>
+        
+        <!-- Contact Info -->
+        <div class="contact-section">
+            <p class="contact-label">My Contact Number</p>
+            <div class="contact-number">
+                <span style="--i: 1">0</span>
+                <span style="--i: 2">9</span>
+                <span style="--i: 3">1</span>
+                <span style="--i: 4">2</span>
+                <span style="--i: 5">6</span>
+                <span style="--i: 6">9</span>
+                <span style="--i: 7">8</span>
+                <span style="--i: 8">5</span>
+                <span style="--i: 9">5</span>
+                <span style="--i: 10">6</span>
+                <span style="--i: 11">6</span>
+            </div>
+            <p class="cta-text">I’m available for calls, messages, and collaborations!</p>
+        </div>
+
+l
+            </a>
+            <a href="ewn.html" class="btn back-btn">
+                <i class="fas fa-arrow-left"></i> Home
+            </a>
+        </div>
+    </div>
+</body>
+</html>
