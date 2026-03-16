@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me</title>
+    <!-- Google Fonts: Luxurious Pairing -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500&display=swap">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: radial-gradient(circle at top right, pink 20%, grey 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* Glassmorphism Card Base */
+        .about-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            max-width: 950px;
+            width: 100%;
+            border-radius: 32px;
+            box-shadow: 
+                0 8px 32px rgba(31, 38, 135, 0.1),
+                0 0 0 1px rgba(255, 255, 255, 0.2);
+            display: flex;
+            flex-wrap: wrap;
+            overflow: hidden;
+            position: relative;
+            transition: all 0.5s ease;
+        }
+
+        .about-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 
+                0 15px 40px rgba(31, 38, 135, 0.15),
+                0 0 0 1px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Gradient Accent Band */
+        .about-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: linear-gradient(90deg, 
+                #d885a3 0%, 
+                #c77dff 35%, 
+                #8e9aaf 70%, 
+                #a3b18a 100%);
+            background-size: 200% 100%;
+            animation: gradient-shift 8s ease infinite;
+        }
+
+        /* Profile Section with Textured Background */
+        .profile-section {
+            flex: 1 1 380px;
+            background: linear-gradient(180deg,grey 15%, pink 70%);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 30px;
+            overflow: hidden;
+        }
+
+        /* Subtle Background Pattern */
+        .profile-section::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url(/2fd9c717852b9b1f1c531a2d6af5a6c6.jpg);
+            opacity: 0.30;
+            pointer-events: none;
+        }
+
+        .profile-frame {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            position: relative;
+            margin-bottom: 35px;
+        }
+
+        .profile-frame::before {
+            content: "";
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            right: -15px;
+            bottom: -15px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, blue, purple);
+            z-index: 0;
+            animation: rotate-glow 6s linear infinite;
+            filter: blur(5px);
+            opacity: 0.7;
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+            border: 8px solid grey(255, 255, 255, 0.9);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+
+        .profile-section:hover .profile-img img {
+            transform: scale(1.08) rotate(1deg);
+        }
+
+        .location-badge {
+          font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            color: red;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 10px 25px;
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Content Section with Refined Typography */
+        .content-section {
+            flex: 2 1 520px;
+            padding: 70px 60px;
+          font-family: Arial, sans-serif;
+        }
+
+        /* Animated Title (Playfair Display - Elegant Serif) */
+        .main-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, purple, #5c677d);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1.1;
+            margin-bottom: 12px;
+            opacity: 0;
+            transform: translateY(-30px);
+            animation: fade-rise 1.2s ease-out forwards;
+        }
+
+        /* Animated Subtitle with Smooth Typing */
+        .subtitle {
+            font-size: 1.3rem;
+            color: darkgoldenrod;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 2px solid orange;
+            width: 0;
+            animation: 
+                type-smooth 3.5s steps(45, end) 0.8s forwards,
+                blink-soft 1.2s step-end infinite;
+        }
+
+        /* Fade-In Bio Text with Letter Spacing */
+        .bio-text {
+            color: bro;
+            line-height: 1.9;
+            font-size: 1.05rem;
+            letter-spacing: 0.3px;
+            margin-bottom: 28px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fade-up 1.5s ease-out forwards;
+        }
+
+        .bio-text:first-of-type { animation-delay: 1.5s; }
+        .bio-text:last-of-type { animation-delay: 2s; }
+
+        /* Stylized Social Links */
+        .social-links {
+            margin-top: 35px;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fade-up 1.5s ease-out forwards;
+            animation-delay: 2.5s;
+        }
+
+        .social-links a {
+            text-decoration: none;
+            color: black;
+            padding: 12px 25px;
+            border-radius: 35px;
+            border: 1px solid rgba(216, 133, 163, 0.3);
+            background: green(255, 255, 255, 0.5);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .social-links a:hover {
+            background: linear-gradient(90deg, yellow 0%,blue 100%);
+            color: pink;
+            border-color: transparent;
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(216, 133, 163, 0.25);
+        }
+
+        .social-links i {
+            font-size: 1.2rem;
+        }
+
+        /* All Animation Keyframes */
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes rotate-glow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes fade-rise {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes type-smooth {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes blink-soft {
+            from, to { border-color: transparent; }
+            50% { border-color: #c77dff; }
+        }
+
+        @keyframes fade-up {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 900px) {
+            .about-card { flex-direction: column; border-radius: 28px; }
+            .profile-section { padding: 50px 20px; }
+            .content-section { padding: 50px 40px; }
+            .main-title { font-size: 3rem; }
+        }
+
+        @media (max-width: 500px) {
+            .profile-frame { width: 220px; height: 220px; }
+            .content-section { padding: 40px 25px; }
+            .main-title { font-size: 2.2rem; }
+            .subtitle { font-size: 1.1rem; }
+            .social-links { gap: 15px; }
+           
+        }
+    </style>
+</head>
+<body>
+    <div class="about-card">
+        <!-- Replace with your profile picture -->
+        <div class="profile-section">
+            <div class="profile-frame">
+                <div class="profile-img">
+                    <img src="/IMG_20260317_064445.jpg" alt="/IMG_20260204_134324.jpg">
+                </div>
+            </div>
+            <div class="location-badge">
+                <i class="fas fa-map-marker-alt fa-fw"></i>
+                Bocaue, Bulacan • Philippines
+            </div>
+        </div>
+
+        <!-- Customize with your details -->
+        <div class="content-section">
+            <h1 class="main-title">Rosalinda Guyla</h1>
+            <p class="subtitle">Tambubong,Bocaue,Bulacan</p>
+            
+            <p class="bio-text">
+                Hello! I’m Linda I'm 17 years old.I was born on December 30 2008
+            </p>
+            
+            <p class="bio-text">
+                I live in Tambubong, Bocaue, Bulacan. I am studying at Taal Senior High School, Grade 11-CP. I love dancing, singing, and playing online games like Mobile Legends (ML). I am a shy person and my favorite color is purple.
+            </p>
+
+            <div class="social-links">
+                <a href="ewn.html"</i>Home</a>
+               
+    </div>
+</body>
+</html>
