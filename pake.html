@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cute Social Links</title>
+    <!-- Font Awesome Icons (Fully Accessible: v6.4.2) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- Google Fonts Note: Link showed unsupported type error -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&family=Quicksand:wght@500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* FULL-SCREEN SKY BLUE ANIMATED GRADIENT BACKGROUND */
+        .fullscreen-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            /* Sky blue gradient palette */
+            background: linear-gradient(135deg, #e0f7fa, #b2ebf2, #80deea, #4dd0e1);
+            background-size: 600% 600%;
+            animation: bgAnimate 18s ease infinite;
+            /* Subtle cloud-like sparkle overlay */
+            background-image: 
+                radial-gradient(circle, rgba(255, 255, 255, 0.4) 1px, transparent 1px),
+                linear-gradient(135deg, #e0f7fa, #b2ebf2, #80deea, #4dd0e1);
+            background-size: 50px 50px, 600% 600%;
+        }
+
+        @keyframes bgAnimate {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+            overflow-x: hidden;
+            padding-top: env(safe-area-inset-top);
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+
+        /* Floating Decorations (Adjusted for sky blue theme) */
+        .decor {
+            position: absolute;
+            font-size: 2.2rem;
+            opacity: 0.8;
+            z-index: 0;
+            animation: floatDance 8s ease-in-out infinite;
+            filter: drop-shadow(0 2px 3px rgba(0,0,0,0.1));
+        }
+
+        .decor-1 { top: 12%; left: 8%; content: '✨'; animation-delay: 0s; }
+        .decor-2 { bottom: 18%; right: 12%; content: '💙'; animation-delay: 1.5s; }
+        .decor-3 { top: 28%; right: 6%; content: '⭐'; animation-delay: 3s; }
+        .decor-4 { bottom: 12%; left: 18%; content: '☁️'; animation-delay: 4.5s; }
+        .decor-5 { top: 70%; left: 25%; content: '💫'; animation-delay: 2s; }
+
+        @keyframes floatDance {
+            0% { transform: translateY(0) rotate(0deg) scale(1); }
+            25% { transform: translateY(-18px) rotate(3deg) scale(1.05); }
+            50% { transform: translateY(-10px) rotate(-3deg) scale(1); }
+            75% { transform: translateY(-18px) rotate(3deg) scale(1.05); }
+            100% { transform: translateY(0) rotate(0deg) scale(1); }
+        }
+
+        /* Social Card (Coordinated with sky blue theme) */
+        .social-card {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 3rem 2.5rem;
+            border-radius: 30px;
+            box-shadow: 0 10px 35px rgba(68, 204, 221, 0.2);
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 550px;
+            width: 100%;
+            border: 3px solid #b2ebf2;
+            display: flex;
+            flex-direction: column;
+            gap: 2.2rem;
+            backdrop-filter: blur(5px);
+        }
+
+        /* Animated Font Styles (Updated colors) */
+        .social-title {
+            font-family: 'Poppins', sans-serif;
+            color: #0097a7;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: titleGlow 4s ease-in-out infinite alternate, titleFloat 3s ease-in-out infinite;
+            text-shadow: 0 2px 5px rgba(0, 151, 167, 0.2);
+        }
+
+        .social-title::before,
+        .social-title::after {
+            content: '☁️';
+            margin: 0 0.6rem;
+            animation: flowerSpin 6s linear infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            0% { color: #0097a7; text-shadow: 0 2px 5px rgba(0, 151, 167, 0.2); }
+            100% { color: #00796b; text-shadow: 0 4px 8px rgba(0, 151, 167, 0.4); }
+        }
+
+        @keyframes titleFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        @keyframes flowerSpin {
+            0% { transform: rotate(-5deg); }
+            100% { transform: rotate(5deg); }
+        }
+
+        .social-subtitle {
+            color: #616161;
+            font-size: 1rem;
+            margin-top: -1rem;
+            animation: subtitleFade 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes subtitleFade {
+            0% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+
+        /* Social Links */
+        .social-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .social-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.2rem;
+            border-radius: 25px;
+            text-decoration: none;
+            color: white;
+            position: relative;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        }
+
+        .facebook-btn { background: #1877f2; border: 2px solid #b3d1ff; }
+        .tiktok-btn { background: #000000; border: 2px solid #d4d4d4; }
+        .instagram-btn { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); border: 2px solid #ffd1e3; }
+
+        .social-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.15);
+        }
+
+        .social-icon {
+            font-size: 2.8rem;
+            margin-bottom: 0.6rem;
+            --fa-animation-duration: 1.5s;
+        }
+
+        .social-btn:hover .social-icon {
+            animation: fa-beat-fade;
+            transform: rotate(15deg) scale(1.1);
+        }
+
+        .social-name {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .social-name::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: white;
+            transition: width 0.3s ease;
+        }
+
+        .social-btn:hover .social-name::after {
+            width: 100%;
+        }
+
+        /* Back Button (Coordinated with theme) */
+        .back-btn {
+            margin-top: 1rem;
+            padding: 0.8rem 2rem;
+            background: #b2ebf2;
+            color: #0097a7;
+            border: 2px solid #0097a7;
+            border-radius: 25px;
+            text-decoration: none;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 151, 167, 0.15);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .back-btn:hover {
+            background: #0097a7;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 151, 167, 0.25);
+        }
+
+        .back-icon {
+            font-size: 1.1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .back-btn:hover .back-icon {
+            transform: translateX(-3px);
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 480px) {
+            .social-card {
+                padding: 2rem 1.5rem;
+                border-radius: 20px;
+            }
+
+            .social-title {
+                font-size: 1.6rem;
+            }
+
+            .social-links {
+                grid-template-columns: 1fr;
+            }
+
+            .social-icon {
+                font-size: 2.5rem;
+            }
+
+            .decor {
+                font-size: 1.8rem;
+            }
+
+            .back-btn {
+                padding: 0.7rem 1.5rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Resource Note */
+        .resource-note {
+            position: absolute;
+            bottom: 1rem;
+            font-size: 0.75rem;
+            color: #757575;
+            text-align: center;
+            max-width: 90%;
+        }
+    </style>
+</head>
+<body>
+    <!-- FULL-SCREEN SKY BLUE BACKGROUND -->
+    <div class="fullscreen-bg"></div>
+
+    <!-- Floating Decorations (Sky Theme) -->
+    <div class="decor decor-1"></div>
+    <div class="decor decor-2"></div>
+    <div class="decor decor-3"></div>
+    <div class="decor decor-4"></div>
+    <div class="decor decor-5"></div>
+
+    <div class="social-card">
+        <div>
+            <h2 class="social-title">Find Me On Socials!</h2>
+            <p class="social-subtitle">Let's be friends~ 💙</p>
+        </div>
+
+        <div class="social-links">
+            <a href="https://www.facebook.com/rosalinda.guyla" class="social-btn facebook-btn">
+                <i class="fab fa-facebook-square social-icon"></i>
+                <span class="social-name">Facebook</span>
+            </a>
+
+            <a href="https://www.tiktok.com/@rosalinda_guyla?_r=1&_t=ZS-94jgJgv9tIL" class="social-btn tiktok-btn">
+                <i class="fab fa-tiktok social-icon"></i>
+                <span class="social-name">TikTok</span>
+            </a>
+
+            <a href="https://www.instagram.com/rzse_lindsxy?igsh=ZmRwdjF2eGdiYWI5" class="social-btn instagram-btn">
+                <i class="fab fa-instagram social-icon"></i>
+                <span class="social-name">Instagram</span>
+            </a>
+        </div>
+
+        <a href="ewn.html" class="back-btn">
+            <i class="fas fa-arrow-left back-icon"></i>
+            Home
+        </a>
+    </div>
+
+   
+</body>
+</html>
